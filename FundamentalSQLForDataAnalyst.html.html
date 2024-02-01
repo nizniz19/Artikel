@@ -1,0 +1,64 @@
+Fundamental SQL For Data Analyst
+
+SQL (Structured Query Language) adalah alat utama bagi seorang analis data dalam menjalankan tugasnya. Dengan SQL, analis dapat mengelola, memanipulasi, dan menganalisis data dengan efisien. Berikut adalah beberapa konsep dasar SQL yang penting untuk dikuasai:
+
+1. Klausa SELECT
+Klausa SELECT digunakan untuk memilih data dari tabel. Terdapat dua bentuk penggunaan yang umum:
+a. SELECT All
+-- Mengambil semua kolom dari tabel "pegawai"
+SELECT * FROM pegawai;
+Perintah di atas akan menampilkan seluruh kolom dari tabel pegawai.
+Tabel pegawai
+b. SELECT FROM
+-- Mengambil kolom tertentu (nama, gaji) dari tabel "pegawai"
+SELECT nama, gaji FROM pegawai;
+
+SELECT FROM digunakan ketika ingin menampilkan data dengan syarat kolom yang kita inginkan, contoh diatas artinya kita hanya menampilkan kolom nama dan gaji yang ada di table 'pegawai'.
+
+2. Klausa WHERE
+-- Mengambil data pegawai dengan gaji lebih dari 50000
+SELECT * FROM pegawai WHERE gaji > 50000;
+
+WHERE clause digunakan ketika kita ingin menyaring/memilah data yang ingin kita tampilkan. 
+Dalam contoh di atas, hanya data pegawai dengan gaji di atas 50000 yang akan ditampilkan.
+
+3. Klausa ORDER BY
+Perintah ORDER BY untuk mengurutkan data, dimana kita bisa mengkustomnya dengan DESC (Descending) & ASC (Ascending), yuk simak perbedaannya.
+-- Mengambil data pegawai dan mengurutkannya berdasarkan gaji secara descending
+SELECT * FROM pegawai ORDER BY gaji DESC;
+
+-- Mengambil data pegawai dan mengurutkannya berdasarkan nama secara ascending
+SELECT * FROM pegawai ORDER BY nama ASC;
+
+Ingat baik baik, perintah DESC digunakan jika kita ingin mengurutkan data dari atas ke bawah / terbesar ke terkecil, sebaliknya perintah ASC digunakan ketika kita ingin mengurutkan dari bawah ke atas / terbesar ke terkecil. 
+
+4. JOIN Clause
+JOIN Clause digunkan ketika kita ingin menggabungkan tabel.
+-- Mengambil data dari dua tabel "pegawai" dan "departemen" yang terkait
+SELECT pegawai.nama, departemen.nama AS departemen
+FROM pegawai
+JOIN departemen ON pegawai.departemen_id = departemen.id;
+
+Contoh di atas menunjukkan penggunaan JOIN untuk menggabungkan data dari tabel pegawai dan departemen berdasarkan kolom departemen_id.
+
+5. GROUP BY Clause (Agregasi Data) 
+Klausa GROUP BY digunakan ketika kita ingin memilih data secara spesifik.
+-- Menghitung jumlah pegawai dalam setiap departemen
+SELECT departemen.nama, COUNT(pegawai.id) AS jumlah_pegawai
+FROM pegawai
+JOIN departemen ON pegawai.departemen_id = departemen.id
+GROUP BY departemen.nama;
+
+disini kita ingin menampilkan nama departemen dan jumlah pegawai disetiap departemen,pertama kita mengambil data pegawai dan departemen, menggabungkannya berdasarkan ID departemen, kemudian menghitung jumlah pegawai di setiap departemen, dan akhirnya mengelompokkannya berdasarkan nama departemen. 
+Hasilnya adalah daftar nama departemen dengan jumlah pegawai di setiap departemen
+
+a. HAVING CLAUSE ( Filter data setelah GROUP BY) 
+-- Mengambil departemen yang memiliki lebih dari 5 pegawai
+SELECT departemen.nama, COUNT(pegawai.id) AS jumlah_pegawai
+FROM pegawai
+JOIN departemen ON pegawai.departemen_id = departemen.id
+GROUP BY departemen.nama
+HAVING COUNT(pegawai.id) > 1;
+
+Dengan menggunakan klausa filter kita bisa menentukan lebih spesifik lagi data yang akan kita tampilkan, contohnya karena perintah memberi syarat dengan hanya memilih jumlah_pegawai > 1;
+Dengan memahami konsep-konsep dasar SQL yang telah dijelaskan di atas, seorang analis data dapat mengoptimalkan penggunaan SQL dalam pekerjaannya dan menghasilkan analisis yang lebih efektif.
